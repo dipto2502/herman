@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Herman Perfume</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #d4af37;
+      --secondary: #4a2c5a;
+      --accent: #ff6b6b;
+      --light: #f8f9fa;
+      --dark: #4a2c5a;
+      --gradient: linear-gradient(135deg, #4a2c5a 0%, #2d1b3d 50%, #1a0f22 100%);
+      --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f4e4a6 50%, #d4af37 100%);
+      --herman-gradient: linear-gradient(135deg, #4a2c5a 0%, #6b3d7a 25%, #8b4f9e 50%, #d4af37 75%, #f4e4a6 100%);
+      --purple-gold: linear-gradient(135deg, #2d1b3d 0%, #4a2c5a 30%, #8b4f9e 60%, #d4af37 90%, #f4e4a6 100%);
+      --success: #28a745;
+      --bkash: #e2136e;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: var(--secondary);
+      background: linear-gradient(135deg, #f4e4a6 0%, #e6d293 25%, #d4af37 50%, #c19b2a 75%, #ad8820 100%);
+      min-height: 100vh;
+    }
+
+    /* Navigation */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      z-index: 1000;
+      padding: 1rem 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      background: var(--herman-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--secondary);
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .cart-icon {
+      position: relative;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--bkash);
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 120px 0 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .checkout-container {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    .checkout-form {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(15px);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .order-summary {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(15px);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      height: fit-content;
+      position: sticky;
+      top: 140px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      background: var(--herman-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .form-section {
+      margin-bottom: 2rem;
+    }
+
+    .form-section h3 {
+      margin-bottom: 1rem;
+      color: var(--secondary);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.5rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--secondary);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e1e5e9;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    }
+
+    /* Payment Methods */
+    .payment-methods {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .payment-option {
+      border: 2px solid #e1e5e9;
+      border-radius: 15px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      background: white;
+    }
+
+    .payment-option:hover {
+      border-color: var(--primary);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .payment-option.selected {
+      border-color: var(--primary);
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .payment-option input[type="radio"] {
+      display: none;
+    }
+
+    .payment-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .bkash-icon {
+      color: var(--bkash);
+    }
+
+    .cod-icon {
+      color: var(--success);
+    }
+
+    .bkash-details {
+      background: rgba(226, 19, 110, 0.1);
+      border: 1px solid var(--bkash);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .bkash-details.show {
+      display: block;
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .bkash-number {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--bkash);
+      text-align: center;
+      background: white;
+      padding: 0.5rem;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    /* Order Summary */
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid #e1e5e9;
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .item-image {
+      width: 60px;
+      height: 60px;
+      background: var(--herman-gradient);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .item-details {
+      flex: 1;
+    }
+
+    .item-name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .item-price {
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .qty-btn {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .qty-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .qty-btn.delete-btn {
+      background: #ff4444;
+      color: white;
+      border-color: #ff4444;
+    }
+
+    .qty-btn.delete-btn:hover {
+      background: #cc0000;
+      border-color: #cc0000;
+    }
+
+    .qty-input {
+      width: 50px;
+      height: 30px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .order-totals {
+      border-top: 2px solid var(--primary);
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .total-row.final {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--secondary);
+      border-top: 1px solid #ddd;
+      padding-top: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      text-align: center;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: var(--herman-gradient);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(74, 44, 90, 0.3);
+    }
+
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
+
+    .btn-block {
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    /* Empty Cart */
+    .empty-cart {
+      text-align: center;
+      padding: 3rem;
+      color: #666;
+    }
+
+    .empty-cart i {
+      font-size: 4rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    /* Success Message */
+    .success-message {
+      background: rgba(40, 167, 69, 0.1);
+      border: 1px solid var(--success);
+      color: var(--success);
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+      animation: slideDown 0.3s ease;
+    }
+
+    /* Loading */
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Debug button */
+    .debug-btn {
+      background: orange;
+      color: white;
+      padding: 0.8rem;
+      margin: 1rem 0;
+      border: none;
+      border-radius: 10px;
+      width: 100%;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .checkout-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .payment-methods {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .main-content {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">Herman</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Collection</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="#" class="cart-icon">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count" id="cart-count">0</span>
+        </a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h1 class="section-title">Checkout</h1>
+    
+    <div class="success-message" id="success-message">
+      <i class="fas fa-check-circle"></i>
+      <strong>Order placed successfully!</strong> You will receive a confirmation call within 24 hours.
+    </div>
+
+    <div id="checkout-content">
+      <div class="checkout-container">
+        <!-- Checkout Form -->
+        <div class="checkout-form">
+          <form id="checkout-form">
+            <!-- Customer Information -->
+            <div class="form-section">
+              <h3><i class="fas fa-user"></i> Customer Information</h3>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="firstName">First Name *</label>
+                  <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last Name *</label>
+                  <input type="text" id="lastName" name="lastName" required>
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone Number *</label>
+                  <input type="tel" id="phone" name="phone" required placeholder="01XXXXXXXXX">
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" placeholder="your@email.com">
+                </div>
+              </div>
+            </div>
+
+            <!-- Delivery Information -->
+            <div class="form-section">
+              <h3><i class="fas fa-map-marker-alt"></i> Delivery Information</h3>
+              <div class="form-grid">
+                <div class="form-group full-width">
+                  <label for="address">Address *</label>
+                  <textarea id="address" name="address" required placeholder="House#, Road#, Area, City" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="city">City *</label>
+                  <select id="city" name="city" required>
+                    <option value="">Select City</option>
+                    <option value="Dhaka">Dhaka</option>
+                    <option value="Chittagong">Chittagong</option>
+                    <option value="Sylhet">Sylhet</option>
+                    <option value="Rajshahi">Rajshahi</option>
+                    <option value="Khulna">Khulna</option>
+                    <option value="Barisal">Barisal</option>
+                    <option value="Rangpur">Rangpur</option>
+                    <option value="Mymensingh">Mymensingh</option>
+                    <option value="Comilla">Comilla</option>
+                    <option value="Gazipur">Gazipur</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="postalCode">Postal Code</label>
+                  <input type="text" id="postalCode" name="postalCode" placeholder="1000">
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Method -->
+            <div class="form-section">
+              <h3><i class="fas fa-credit-card"></i> Payment Method</h3>
+              <div class="payment-methods">
+                <div class="payment-option" onclick="selectPayment('bkash')">
+                  <input type="radio" name="paymentMethod" value="bkash" id="bkash">
+                  <i class="fab fa-btc payment-icon bkash-icon"></i>
+                  <div><strong>bKash</strong></div>
+                  <div>Pay with bKash</div>
+                </div>
+                <div class="payment-option" onclick="selectPayment('cod')">
+                  <input type="radio" name="paymentMethod" value="cod" id="cod">
+                  <i class="fas fa-money-bill payment-icon cod-icon"></i>
+                  <div><strong>Cash on Delivery</strong></div>
+                  <div>Pay when you receive</div>
+                </div>
+              </div>
+              
+              <div class="bkash-details" id="bkash-details">
+                <h4><i class="fas fa-mobile-alt"></i> bKash Payment</h4>
+                <p>Send money to this bKash number:</p>
+                <div class="bkash-number">01XXXXXXXXX</div>
+                <p><strong>Instructions:</strong></p>
+                <ol>
+                  <li>Open your bKash app</li>
+                  <li>Select "Send Money"</li>
+                  <li>Enter the number above</li>
+                  <li>Enter the total amount</li>
+                  <li>Complete the transaction</li>
+                  <li>Enter transaction ID below</li>
+                </ol>
+                <div class="form-group" style="margin-top: 1rem;">
+                  <label for="transactionId">Transaction ID *</label>
+                  <input type="text" id="transactionId" name="transactionId" placeholder="Enter bKash transaction ID">
+                </div>
+              </div>
+            </div>
+
+            <!-- Order Notes -->
+            <div class="form-section">
+              <h3><i class="fas fa-sticky-note"></i> Order Notes (Optional)</h3>
+              <div class="form-group">
+                <textarea id="orderNotes" name="orderNotes" placeholder="Any special instructions for delivery..." rows="3"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+          <h3><i class="fas fa-receipt"></i> Order Summary</h3>
+          <div id="cart-items">
+            <!-- Cart items will be loaded here -->
+          </div>
+          
+          <div class="order-totals">
+            <div class="total-row">
+              <span>Subtotal:</span>
+              <span id="subtotal">৳0</span>
+            </div>
+            <div class="total-row">
+              <span>Delivery Charge:</span>
+              <span id="delivery-charge">৳60</span>
+            </div>
+            <div class="total-row final">
+              <span>Total:</span>
+              <span id="total">৳60</span>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary btn-block" onclick="placeOrder()">
+            <i class="fas fa-shopping-bag"></i> Place Order
+          </button>
+
+          <button type="button" class="debug-btn" onclick="debugCart()">
+            🐛 DEBUG CART
+          </button>
+          
+          <a href="products.html" class="btn btn-secondary btn-block">
+            <i class="fas fa-arrow-left"></i> Continue Shopping
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty Cart Message -->
+    <div class="empty-cart" id="empty-cart" style="display: none;">
+      <i class="fas fa-shopping-cart"></i>
+      <h3>Your cart is empty</h3>
+      <p>Add some products to your cart to proceed with checkout.</p>
+      <a href="products.html" class="btn btn-primary">
+        <i class="fas fa-shopping-bag"></i> Shop Now
+      </a>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <p>Processing your order...</p>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+    const deliveryCharge = 60;
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCart();
+      initializeEventListeners();
+    });
+
+    // Load cart from localStorage
+    function loadCart() {
+      // Validate cart items have required fields
+      const invalidItems = cart.filter(item => 
+        !getItemId(item) || !item.name || !item.price || !item.quantity
+      );
+      
+      if (invalidItems.length > 0) {
+        console.error('Invalid cart items found:', invalidItems);
+        alert('Some cart items are missing required information. Please refresh and try again.');
+        return;
+      }
+
+      try {
+        const savedCart = localStorage.getItem('hermanCart');
+        if (savedCart) {
+          cart = JSON.parse(savedCart);
+          console.log('Cart loaded:', cart);
+        }
+      } catch (error) {
+        console.error('Error loading cart:', error);
+        cart = [];
+      }
+      updateCartDisplay();
+    }
+
+    // Save cart to localStorage
+    function saveCart() {
+      try {
+        localStorage.setItem('hermanCart', JSON.stringify(cart));
+        console.log('Cart saved:', cart);
+      } catch (error) {
+        console.error('Error saving cart:', error);
+      }
+    }
+
+    // Get item identifier (handles both id and productId)
+    function getItemId(item) {
+      return item.productId || item.id || item.name;
+    }
+
+    // Find item in cart by ID
+    function findCartItem(itemId) {
+      return cart.find(item => getItemId(item) === itemId);
+    }
+
+    // Update cart display
+    function updateCartDisplay() {
+      const cartItemsContainer = document.getElementById('cart-items');
+      const cartCount = document.getElementById('cart-count');
+      const emptyCart = document.getElementById('empty-cart');
+      const checkoutContent = document.getElementById('checkout-content');
+
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartCount.textContent = totalItems;
+
+      if (cart.length === 0) {
+        emptyCart.style.display = 'block';
+        checkoutContent.style.display = 'none';
+        return;
+      }
+
+      emptyCart.style.display = 'none';
+      checkoutContent.style.display = 'block';
+
+      cartItemsContainer.innerHTML = cart.map((item, index) => {
+        const itemId = getItemId(item);
+        return `
+        <div class="cart-item" data-item-id="${itemId}">
+          <div class="item-image">
+            <i class="fas fa-${getCategoryIcon(item.category)}"></i>
+          </div>
+          <div class="item-details">
+            <div class="item-name">${item.name}</div>
+            <div class="item-price">৳${item.price}</div>
+            <div class="quantity-controls">
+              <button class="qty-btn" onclick="updateQuantity('${itemId}', -1)">-</button>
+              <input type="number" class="qty-input" value="${item.quantity}" min="1" onchange="setQuantity('${itemId}', this.value)">
+              <button class="qty-btn" onclick="updateQuantity('${itemId}', 1)">+</button>
+              <button class="qty-btn delete-btn" onclick="removeFromCart('${itemId}')" title="Remove item">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+
+      updateTotals();
+    }
+
+    // Update quantity
+    function updateQuantity(itemId, change) {
+      console.log(`Updating quantity for item ${itemId}, change: ${change}`);
+      const item = findCartItem(itemId);
+      if (item) {
+        item.quantity += change;
+        if (item.quantity <= 0) {
+          removeFromCart(itemId);
+        } else {
+          saveCart();
+          updateCartDisplay();
+        }
+      } else {
+        console.error(`Item not found: ${itemId}`);
+      }
+    }
+
+    // Set quantity directly
+    function setQuantity(itemId, quantity) {
+      console.log(`Setting quantity for item ${itemId} to ${quantity}`);
+      const item = findCartItem(itemId);
+      if (item) {
+        item.quantity = Math.max(1, parseInt(quantity) || 1);
+        saveCart();
+        updateCartDisplay();
+      } else {
+        console.error(`Item not found: ${itemId}`);
+      }
+    }
+
+    // Remove from cart
+    function removeFromCart(itemId) {
+      console.log(`Attempting to remove item: ${itemId}`);
+      console.log('Cart before removal:', cart);
+      
+      const initialLength = cart.length;
+      cart = cart.filter(item => getItemId(item) !== itemId);
+      
+      if (cart.length < initialLength) {
+        console.log(`Successfully removed item ${itemId}`);
+        saveCart();
+        updateCartDisplay();
+      } else {
+        console.error(`Failed to remove item ${itemId} - not found in cart`);
+        debugCart(); // Auto-debug if removal fails
+      }
+    }
+
+    // Update totals
+    function updateTotals() {
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const total = subtotal + deliveryCharge;
+
+      document.getElementById('subtotal').textContent = `৳${subtotal}`;
+      document.getElementById('total').textContent = `৳${total}`;
+    }
+
+    // Get category icon
+    function getCategoryIcon(category) {
+      const icons = {
+        floral: 'leaf',
+        woody: 'tree',
+        oriental: 'gem',
+        fresh: 'wind'
+      };
+      return icons[category] || 'spray-can';
+    }
+
+    // Debug cart function
+    function debugCart() {
+      console.log('=== CART DEBUG ===');
+      console.log('Cart array:', cart);
+      console.log('Cart length:', cart.length);
+      
+      cart.forEach((item, index) => {
+        console.log(`Item ${index}:`, {
+          id: item.id,
+          productId: item.productId,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          category: item.category,
+          computedId: getItemId(item)
+        });
+      });
+      
+      const cartData = localStorage.getItem('hermanCart');
+      console.log('localStorage data:', cartData);
+      
+      alert(`Cart has ${cart.length} items. Check console for details.`);
+      console.log('=== END DEBUG ===');
+    }
+
+    // Payment method selection
+    function selectPayment(method) {
+      document.querySelectorAll('.payment-option').forEach(option => {
+        option.classList.remove('selected');
+      });
+      
+      event.currentTarget.classList.add('selected');
+      document.getElementById(method).checked = true;
+      
+      const bkashDetails = document.getElementById('bkash-details');
+      const transactionIdInput = document.getElementById('transactionId');
+      
+      if (method === 'bkash') {
+        bkashDetails.classList.add('show');
+        transactionIdInput.required = true;
+      } else {
+        bkashDetails.classList.remove('show');
+        transactionIdInput.required = false;
+        transactionIdInput.value = '';
+      }
+    }
+
+    // Place order
+    async function placeOrder() {
+      const form = document.getElementById('checkout-form');
+      const formData = new FormData(form);
+      
+      // Validate form
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Validate payment method
+      const paymentMethod = formData.get('paymentMethod');
+      if (!paymentMethod) {
+        alert('Please select a payment method');
+        return;
+      }
+
+      // Validate bKash transaction ID if bKash is selected
+      if (paymentMethod === 'bkash' && !formData.get('transactionId')) {
+        alert('Please enter bKash transaction ID');
+        return;
+      }
+
+      // Validate cart is not empty
+      if (cart.length === 0) {
+        alert('Your cart is empty. Please add items before placing an order.');
+        return;
+      }
+
+      try {
+        // Show loading
+        document.getElementById('loading').style.display = 'block';
+        
+        // Prepare order data
+        const orderData = {
+          customer: {
+            firstName: formData.get('firstName'),
+            lastName: formData.get('lastName'),
+            phone: formData.get('phone'),
+            email: formData.get('email')
+          },
+          delivery: {
+            address: formData.get('address'),
+            city: formData.get('city'),
+            postalCode: formData.get('postalCode')
+          },
+          payment: {
+            method: paymentMethod,
+            transactionId: formData.get('transactionId') || null
+          },
+          items: cart.map(item => ({
+            productId: getItemId(item), // Add productId field
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+            category: item.category,
+            total: item.price * item.quantity
+          })),
+          totals: {
+            subtotal: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+            deliveryCharge: deliveryCharge,
+            total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + deliveryCharge
+          },
+          orderNotes: formData.get('orderNotes') || '',
+          timestamp: new Date().toISOString(),
+          orderId: generateOrderId()
+        };
+
+        // Simulate API call (replace with actual API endpoint)
+        const result = await submitOrderToAPI(orderData);
+
+        // Order successful
+        showSuccessMessage(result.orderId || orderData.orderId);
+        clearCart();
+        
+      } catch (error) {
+        console.error('Order processing error:', error);
+        alert('There was an error processing your order. Please try again.');
+      } finally {
+        // Hide loading
+        document.getElementById('loading').style.display = 'none';
+      }
+    }
+
+    // Generate order ID
+    function generateOrderId() {
+      const timestamp = Date.now();
+      const random = Math.floor(Math.random() * 1000);
+      return `HRM${timestamp}${random}`;
+    }
+
+    // Submit order to API
+    async function submitOrderToAPI(orderData) {
+      try {
+        const response = await fetch('/api/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(orderData)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.message || result.error || 'Failed to submit order');
+        }
+
+        return result;
+      } catch (error) {
+        console.error('API Error:', error);
+        throw new Error(`Failed to submit order: ${error.message}`);
+      }
+    }
+
+    // Show success message
+    function showSuccessMessage(orderId) {
+      const successMessage = document.getElementById('success-message');
+      
+      // Update success message with order ID if provided
+      if (orderId) {
+        successMessage.innerHTML = `
+          <i class="fas fa-check-circle"></i>
+          <strong>Order placed successfully!</strong> 
+          <br>Your order ID is: <strong>${orderId}</strong>
+          <br>You will receive a confirmation call within 24 hours.
+        `;
+      }
+      
+      successMessage.classList.add('show');
+      
+      // Scroll to top to show success message
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // Hide checkout content
+      document.getElementById('checkout-content').style.display = 'none';
+      
+      // Show success message for 5 seconds, then redirect
+      setTimeout(() => {
+        window.location.href = 'products.html';
+      }, 5000);
+    }
+
+    // Clear cart
+    function clearCart() {
+      cart = [];
+      saveCart();
+      updateCartDisplay();
+    }
+
+    // Initialize event listeners
+    function initializeEventListeners() {
+      // Phone number formatting
+      const phoneInput = document.getElementById('phone');
+      phoneInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+        if (value.length > 11) {
+          value = value.substring(0, 11);
+        }
+        e.target.value = value;
+      });
+
+      // Form validation on submit
+      const form = document.getElementById('checkout-form');
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        placeOrder();
+      });
+
+      // Auto-select payment method when clicked
+      document.querySelectorAll('.payment-option').forEach(option => {
+        option.addEventListener('click', function() {
+          const method = this.querySelector('input[type="radio"]').value;
+          selectPayment(method);
+        });
+      });
+
+      // City change handler for delivery charge calculation
+      const citySelect = document.getElementById('city');
+      citySelect.addEventListener('change', function() {
+        updateDeliveryCharge(this.value);
+      });
+    }
+
+    // Update delivery charge based on city
+    function updateDeliveryCharge(city) {
+      let charge = 60; // Default charge
+      
+      // Different charges for different cities
+      const cityCharges = {
+        'Dhaka': 60,
+        'Chittagong': 80,
+        'Sylhet': 100,
+        'Rajshahi': 90,
+        'Khulna': 90,
+        'Barisal': 100,
+        'Rangpur': 100,
+        'Mymensingh': 80,
+        'Comilla': 70,
+        'Gazipur': 60
+      };
+
+      if (cityCharges[city]) {
+        charge = cityCharges[city];
+      }
+
+      // Update global delivery charge
+      window.deliveryCharge = charge;
+      
+      // Update display
+      document.getElementById('delivery-charge').textContent = `৳${charge}`;
+      updateTotals();
+    }
+
+    // Add sample products to cart for testing (remove in production)
+    function addSampleProducts() {
+      const sampleProducts = [
+        {
+          id: 'sample1',
+          name: 'Royal Oud',
+          price: 2500,
+          quantity: 1,
+          category: 'oriental'
+        },
+        {
+          id: 'sample2',
+          name: 'Fresh Bloom',
+          price: 1800,
+          quantity: 2,
+          category: 'floral'
+        }
+      ];
+
+      cart = sampleProducts;
+      saveCart();
+      updateCartDisplay();
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      // Ctrl + Alt + S to add sample products
+      if (e.ctrlKey && e.altKey && e.key === 's') {
+        addSampleProducts();
+        console.log('Sample products added to cart');
+      }
+      
+      // Ctrl + Alt + C to clear cart
+      if (e.ctrlKey && e.altKey && e.key === 'c') {
+        clearCart();
+        console.log('Cart cleared');
+      }
+      
+      // Ctrl + Alt + D to debug cart
+      if (e.ctrlKey && e.altKey && e.key === 'd') {
+        debugCart();
+      }
+    });
+
+    // Handle cart icon click
+    document.addEventListener('DOMContentLoaded', function() {
+      const cartIcon = document.querySelector('.cart-icon');
+      if (cartIcon) {
+        cartIcon.addEventListener('click', function(e) {
+          e.preventDefault();
+          // If already on checkout page, just scroll to top
+          if (window.location.pathname.includes('checkout.html')) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            window.location.href = 'checkout.html';
+          }
+        });
+      }
+    });
+
+    // Auto-save form data
+    function autoSaveFormData() {
+      const formElements = document.querySelectorAll('#checkout-form input, #checkout-form select, #checkout-form textarea');
+      
+      formElements.forEach(element => {
+        element.addEventListener('input', function() {
+          const formData = {};
+          formElements.forEach(el => {
+            if (el.type !== 'radio' || el.checked) {
+              formData[el.name] = el.value;
+            }
+          });
+          
+          localStorage.setItem('checkoutFormData', JSON.stringify(formData));
+        });
+      });
+    }
+
+    // Load saved form data
+    function loadSavedFormData() {
+      const savedData = localStorage.getItem('checkoutFormData');
+      if (savedData) {
+        try {
+          const formData = JSON.parse(savedData);
+          
+          Object.keys(formData).forEach(key => {
+            const element = document.querySelector(`[name="${key}"]`);
+            if (element) {
+              if (element.type === 'radio') {
+                if (element.value === formData[key]) {
+                  element.checked = true;
+                  selectPayment(formData[key]);
+                }
+              } else {
+                element.value = formData[key];
+              }
+            }
+          });
+        } catch (error) {
+          console.error('Error loading saved form data:', error);
+        }
+      }
+    }
+
+    // Clear saved form data after successful order
+    function clearSavedFormData() {
+      localStorage.removeItem('checkoutFormData');
+    }
+
+    // Enhanced initialization
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCart();
+      initializeEventListeners();
+      autoSaveFormData();
+      loadSavedFormData();
+      
+      // Focus on first name field
+      setTimeout(() => {
+        const firstNameInput = document.getElementById('firstName');
+        if (firstNameInput && cart.length > 0) {
+          firstNameInput.focus();
+        }
+      }, 500);
+    });
+
+    // Handle page visibility change (save form data when page becomes hidden)
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        // Save current form state
+        const form = document.getElementById('checkout-form');
+        if (form) {
+          const formData = new FormData(form);
+          const data = {};
+          for (let [key, value] of formData.entries()) {
+            data[key] = value;
+          }
+          localStorage.setItem('checkoutFormData', JSON.stringify(data));
+        }
+      }
+    });
+
+    // Override the success message behavior
+    function showSuccessMessage() {
+      const successMessage = document.getElementById('success-message');
+      successMessage.classList.add('show');
+      
+      // Clear saved form data
+      clearSavedFormData();
+      
+      // Scroll to top to show success message
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // Hide checkout content
+      document.getElementById('checkout-content').style.display = 'none';
+      
+      // Create a "Place Another Order" button
+      const successDiv = successMessage;
+      if (!successDiv.querySelector('.order-actions')) {
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = 'order-actions';
+        actionsDiv.style.marginTop = '1rem';
+        actionsDiv.innerHTML = `
+          <button class="btn btn-primary" onclick="window.location.href='products.html'" style="margin-right: 1rem;">
+            <i class="fas fa-shopping-bag"></i> Continue Shopping
+          </button>
+          <button class="btn btn-secondary" onclick="window.location.reload()">
+            <i class="fas fa-plus"></i> Place Another Order
+          </button>
+        `;
+        successDiv.appendChild(actionsDiv);
+      }
+    }
+  </script>
+</body>
+</html>

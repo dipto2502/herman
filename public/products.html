@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Collection - Herman Perfume</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #d4af37;
+      --secondary: #4a2c5a;
+      --accent: #ff6b6b;
+      --light: #f8f9fa;
+      --dark: #4a2c5a;
+      --gradient: linear-gradient(135deg, #4a2c5a 0%, #2d1b3d 50%, #1a0f22 100%);
+      --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f4e4a6 50%, #d4af37 100%);
+      --herman-gradient: linear-gradient(135deg, #4a2c5a 0%, #6b3d7a 25%, #8b4f9e 50%, #d4af37 75%, #f4e4a6 100%);
+      --purple-gold: linear-gradient(135deg, #2d1b3d 0%, #4a2c5a 30%, #8b4f9e 60%, #d4af37 90%, #f4e4a6 100%);
+      --glass: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: var(--secondary);
+      background: linear-gradient(135deg, #f4e4a6 0%, #e6d293 25%, #d4af37 50%, #c19b2a 75%, #ad8820 100%);
+      min-height: 100vh;
+    }
+
+    /* Navigation */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      /* background: rgba(255, 255, 255, 0.95); */
+      background: transparent;
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      padding: 1rem 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      background: var(--herman-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--secondary);
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .cart-icon {
+      position: relative;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #e2136e;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+      min-width: 20px;
+    }
+
+    /* Header Section */
+    .header {
+      padding: 120px 0 60px;
+      background: var(--purple-gold);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.2) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(74, 44, 90, 0.2) 0%, transparent 50%);
+      animation: gradientMove 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes gradientMove {
+      0% { transform: scale(1) rotate(0deg); }
+      100% { transform: scale(1.1) rotate(5deg); }
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .header h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      background: var(--herman-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: slideInDown 1s ease;
+    }
+
+    @keyframes slideInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header p {
+      font-size: 1.3rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 2rem;
+      animation: fadeIn 1s ease 0.3s both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Filters */
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: slideInUp 1s ease 0.6s both;
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .filter-btn {
+      padding: 0.8rem 1.5rem;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border: 2px solid transparent;
+      border-radius: 30px;
+      color: var(--secondary);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--herman-gradient);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(74, 44, 90, 0.3);
+    }
+
+    /* Main Content */
+    .main-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    /* Loading Animation */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+      font-size: 1.2rem;
+      color: #666;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Product Grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2.5rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.3s both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .product-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(15px);
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--herman-gradient);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+      border-radius: 25px;
+    }
+
+    .product-card:hover::before {
+      opacity: 0.05;
+    }
+
+    .product-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-image {
+      height: 280px;
+      background: var(--herman-gradient);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 4rem;
+      overflow: hidden;
+    }
+
+    .product-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .product-card:hover .product-image::before {
+      opacity: 1;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .product-card:hover .product-image img {
+      transform: scale(1.1);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--gold-gradient);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    .product-content {
+      padding: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .product-category {
+      color: var(--primary);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-title {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: var(--secondary);
+      line-height: 1.3;
+    }
+
+    .product-description {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    .product-notes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .note-tag {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--primary);
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+
+    .product-price {
+      font-size: 2rem;
+      font-weight: bold;
+      background: var(--herman-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .add-to-cart {
+      background: var(--herman-gradient);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .add-to-cart::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .add-to-cart:hover::before {
+      left: 100%;
+    }
+
+    .add-to-cart:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(74, 44, 90, 0.3);
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      background: var(--herman-gradient);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transform: translateX(400px);
+      transition: transform 0.3s ease;
+      z-index: 10000;
+    }
+
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #666;
+    }
+
+    .empty-state i {
+      font-size: 4rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .empty-state h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+      }
+
+      .header p {
+        font-size: 1.1rem;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .filters {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 1rem;
+      }
+
+      .filter-btn {
+        flex-shrink: 0;
+      }
+
+      .main-content {
+        padding: 2rem 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .product-card {
+        margin: 0 0.5rem;
+      }
+
+      .product-content {
+        padding: 1.5rem;
+      }
+
+      .product-footer {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+      }
+
+      .add-to-cart {
+        width: 100%;
+        justify-self: stretch;
+      }
+    }
+
+    /* Animations for product cards */
+    .product-card {
+      animation: cardSlideIn 0.6s ease both;
+    }
+
+    .product-card:nth-child(1) { animation-delay: 0.1s; }
+    .product-card:nth-child(2) { animation-delay: 0.2s; }
+    .product-card:nth-child(3) { animation-delay: 0.3s; }
+    .product-card:nth-child(4) { animation-delay: 0.4s; }
+    .product-card:nth-child(5) { animation-delay: 0.5s; }
+    .product-card:nth-child(6) { animation-delay: 0.6s; }
+
+    @keyframes cardSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">Herman</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#" class="active">Collection</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="checkout.html" class="cart-icon">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count" id="cart-count">0</span>
+        </a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <h1>Our Perfume Collection</h1>
+      <p>Explore our carefully curated selection of luxury fragrances, each crafted to perfection with the finest ingredients from around the world.</p>
+      
+      <div class="filters">
+        <button class="filter-btn active" data-category="all">All Fragrances</button>
+        <button class="filter-btn" data-category="floral">Floral</button>
+        <button class="filter-btn" data-category="woody">Woody</button>
+        <button class="filter-btn" data-category="oriental">Oriental</button>
+        <button class="filter-btn" data-category="fresh">Fresh</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      Loading our exquisite collection...
+    </div>
+    
+    <div class="product-grid" id="product-list" style="display: none;">
+      <!-- Products will be loaded here -->
+    </div>
+
+    <div class="empty-state" id="empty-state" style="display: none;">
+      <i class="fas fa-search"></i>
+      <h3>No fragrances found</h3>
+      <p>Try adjusting your filters or check back later for new arrivals.</p>
+    </div>
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i> Added to cart!
+  </div>
+
+  <script>
+    let allProducts = [];
+    let filteredProducts = [];
+    let cart = [];
+
+    // Sample products (fallback data)
+    const sampleProducts = [
+      {
+        _id: "1",
+        name: "Midnight Elegance",
+        description: "A sophisticated blend of sandalwood, vanilla, and amber that captivates the senses with its mysterious allure. Perfect for evening occasions.",
+        price: 125,
+        category: "oriental",
+        notes: ["Sandalwood", "Vanilla", "Amber"],
+        badge: "Bestseller",
+        quantity: 50,
+        inStock: true
+      },
+      {
+        _id: "2",
+        name: "Garden Dreams",
+        description: "Fresh and vibrant notes of jasmine, bergamot, and white tea create a perfect daytime companion that energizes and uplifts.",
+        price: 98,
+        category: "floral",
+        notes: ["Jasmine", "Bergamot", "White Tea"],
+        badge: "New",
+        quantity: 30,
+        inStock: true
+      },
+      {
+        _id: "3",
+        name: "Royal Essence",
+        description: "An opulent fragrance featuring rare oud, rose petals, and gold accents for the most discerning tastes. A true luxury experience.",
+        price: 250,
+        category: "oriental",
+        notes: ["Oud", "Rose", "Gold Accents"],
+        badge: "Limited",
+        quantity: 10,
+        inStock: true
+      },
+      {
+        _id: "4",
+        name: "Ocean Breeze",
+        description: "Refreshing aquatic notes combined with sea salt and driftwood create an invigorating maritime escape.",
+        price: 89,
+        category: "fresh",
+        notes: ["Sea Salt", "Driftwood", "Aquatic"],
+        badge: "",
+        quantity: 40,
+        inStock: true
+      },
+      {
+        _id: "5",
+        name: "Forest Walk",
+        description: "Earthy pine, cedar, and moss blend harmoniously to capture the essence of a peaceful woodland stroll.",
+        price: 115,
+        category: "woody",
+        notes: ["Pine", "Cedar", "Moss"],
+        badge: "",
+        quantity: 25,
+        inStock: true
+      },
+      {
+        _id: "6",
+        name: "Summer Bloom",
+        description: "A delightful bouquet of peony, lily of the valley, and soft musk that embodies the beauty of spring gardens.",
+        price: 95,
+        category: "floral",
+        notes: ["Peony", "Lily of Valley", "Musk"],
+        badge: "Popular",
+        quantity: 35,
+        inStock: true
+      }
+    ];
+
+    // Load cart from localStorage
+    function loadCart() {
+      const savedCart = localStorage.getItem('hermanCart');
+      if (savedCart) {
+        cart = JSON.parse(savedCart);
+      }
+      updateCartCount();
+    }
+
+    // Save cart to localStorage
+    function saveCart() {
+      localStorage.setItem('hermanCart', JSON.stringify(cart));
+      updateCartCount();
+    }
+
+    // Update cart count in navbar
+    function updateCartCount() {
+      const cartCount = document.getElementById('cart-count');
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartCount.textContent = totalItems;
+      
+      if (totalItems > 0) {
+        cartCount.style.display = 'flex';
+      } else {
+        cartCount.style.display = 'none';
+      }
+    }
+
+    // Load products function
+    async function loadProducts() {
+      try {
+        // Try to fetch from API first
+        const res = await fetch("/api/products");
+        if (res.ok) {
+          allProducts = await res.json();
+        } else {
+          throw new Error('API not available');
+        }
+      } catch (error) {
+        // Fall back to sample data
+        console.log('Using sample data');
+        allProducts = sampleProducts;
+      }
+      
+      filteredProducts = allProducts;
+      setTimeout(() => {
+        displayProducts(filteredProducts);
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('product-list').style.display = 'grid';
+      }, 1000); // Simulate loading time
+    }
+
+    // Display products function
+    function displayProducts(products) {
+      const productList = document.getElementById('product-list');
+      const emptyState = document.getElementById('empty-state');
+      
+      if (products.length === 0) {
+        productList.style.display = 'none';
+        emptyState.style.display = 'block';
+        return;
+      }
+      
+      emptyState.style.display = 'none';
+      productList.style.display = 'grid';
+      
+      productList.innerHTML = products.map(product => `
+        <div class="product-card" data-category="${product.category}">
+          <div class="product-image">
+            ${product.image ? 
+              `<img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+               <div style="display:none; align-items:center; justify-content:center; width:100%; height:100%; font-size:4rem; color:white;">
+                 <i class="fas fa-${getCategoryIcon(product.category)}"></i>
+               </div>` :
+              `<i class="fas fa-${getCategoryIcon(product.category)}"></i>`
+            }
+            ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+          </div>
+          <div class="product-content">
+            <div class="product-category">${product.category}</div>
+            <h3 class="product-title">${product.name}</h3>
+            <p class="product-description">${product.description}</p>
+            ${product.notes && product.notes.length > 0 ? `
+              <div class="product-notes">
+                ${product.notes.map(note => `<span class="note-tag">${note}</span>`).join('')}
+              </div>
+            ` : ''}
+            <div class="product-footer">
+              <div class="product-price">৳${product.price}</div>
+              <button class="add-to-cart" onclick="addToCart('${product._id || product.id}', '${product.name.replace(/'/g, "\\'")}', ${product.price}, '${product.category}')">
+                <i class="fas fa-shopping-bag"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Get category icon
+    function getCategoryIcon(category) {
+      const icons = {
+        floral: 'leaf',
+        woody: 'tree',
+        oriental: 'gem',
+        fresh: 'wind',
+        default: 'spray-can'
+      };
+      return icons[category] || icons.default;
+    }
+
+    // Filter products
+    function filterProducts(category) {
+      if (category === 'all') {
+        filteredProducts = allProducts;
+      } else {
+        filteredProducts = allProducts.filter(product => product.category === category);
+      }
+      displayProducts(filteredProducts);
+    }
+
+    // Add to cart function
+    function addToCart(productId, productName, productPrice, productCategory) {
+      // Check if item already in cart
+      const existingItem = cart.find(item => item.id === productId);
+      
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({
+          id: productId,
+          name: productName,
+          price: productPrice,
+          category: productCategory,
+          quantity: 1
+        });
+      }
+      
+      saveCart();
+      showToast();
+      
+      // Animation feedback on button
+      const button = event.target;
+      const originalContent = button.innerHTML;
+      
+      button.innerHTML = '<i class="fas fa-check"></i> Added!';
+      button.style.background = '#28a745';
+      button.disabled = true;
+      
+      setTimeout(() => {
+        button.innerHTML = originalContent;
+        button.style.background = '';
+        button.disabled = false;
+      }, 1500);
+    }
+
+    // Show toast notification
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Filter button event listeners
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active state
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Filter products
+        const category = btn.getAttribute('data-category');
+        filterProducts(category);
+      });
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      loadCart();
+      loadProducts();
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.style.background = 'transparent'; //'rgba(255, 255, 255, 0.98)'
+      } else {
+        navbar.style.background = 'transparent'; //rgba(255, 255, 255, 0.95)
+      }
+    });
+  </script>
+</body>
+</html>

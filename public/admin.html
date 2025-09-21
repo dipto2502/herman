@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Herman Perfume</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #d4af37;
+      --secondary: #1a1a1a;
+      --success: #4CAF50;
+      --danger: #f44336;
+      --warning: #ff9800;
+      --info: #2196F3;
+      --light: #f8f9fa;
+      --dark: #2c2c2c;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      color: var(--secondary);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .header {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .header h1 {
+      background: linear-gradient(135deg, var(--primary) 0%, #f4e4a6 50%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      background: white;
+      padding: 1rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .tab-btn {
+      padding: 1rem 2rem;
+      background: transparent;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--secondary);
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .tab-btn:hover:not(.active) {
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--secondary);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e1e5e9;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .file-upload {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .file-upload input[type="file"] {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .file-upload-label {
+      display: block;
+      padding: 2rem;
+      border: 2px dashed #e1e5e9;
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .file-upload-label:hover,
+    .file-upload-label.dragover {
+      border-color: var(--primary);
+      background: rgba(212, 175, 55, 0.05);
+    }
+
+    .notes-input {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .note-tag {
+      background: var(--primary);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .note-tag .remove {
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #b8941f;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn-warning {
+      background: var(--warning);
+      color: white;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-image {
+      height: 200px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3rem;
+      position: relative;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--primary);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .product-info {
+      padding: 1.5rem;
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .alert {
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .alert.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .alert.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .tabs {
+        flex-direction: column;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Herman Perfume Admin</h1>
+      <p>Manage your perfume collection</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="add-product">Add Product</button>
+      <button class="tab-btn" data-tab="manage-products">Manage Products</button>
+      <button class="tab-btn" data-tab="bulk-actions">Bulk Actions</button>
+    </div>
+
+    <!-- Add Product Tab -->
+    <div class="tab-content active" id="add-product">
+      <div class="form-container">
+        <h2>Add New Product</h2>
+        <div class="alert" id="add-alert"></div>
+        
+        <form id="add-product-form" enctype="multipart/form-data">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="name">Product Name *</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="price">Price ($) *</label>
+              <input type="number" id="price" name="price" step="0.01" min="0" required>
+            </div>
+
+            <div class="form-group">
+              <label for="category">Category *</label>
+              <select id="category" name="category" required>
+                <option value="">Select Category</option>
+                <option value="floral">Floral</option>
+                <option value="woody">Woody</option>
+                <option value="oriental">Oriental</option>
+                <option value="fresh">Fresh</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="badge">Badge</label>
+              <select id="badge" name="badge">
+                <option value="">No Badge</option>
+                <option value="New">New</option>
+                <option value="Bestseller">Bestseller</option>
+                <option value="Limited">Limited</option>
+                <option value="Popular">Popular</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="quantity">Quantity</label>
+              <input type="number" id="quantity" name="quantity" min="0" value="0">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description *</label>
+            <textarea id="description" name="description" required placeholder="Describe the fragrance..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="notes-input">Fragrance Notes</label>
+            <input type="text" id="notes-input" placeholder="Add a note and press Enter">
+            <div class="notes-input" id="notes-display"></div>
+            <input type="hidden" id="notes" name="notes">
+          </div>
+
+          <div class="form-group">
+            <label>Product Image</label>
+            <div class="file-upload">
+              <input type="file" id="image" name="image" accept="image/*">
+              <label for="image" class="file-upload-label">
+                <i class="fas fa-cloud-upload-alt fa-2x"></i>
+                <p>Click to upload or drag and drop</p>
+                <p>PNG, JPG, GIF up to 5MB</p>
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add Product
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Manage Products Tab -->
+    <div class="tab-content" id="manage-products">
+      <div class="form-container">
+        <h2>Manage Products</h2>
+        <div class="alert" id="manage-alert"></div>
+        
+        <div class="loading" id="products-loading">
+          <div class="spinner"></div>
+          <p>Loading products...</p>
+        </div>
+
+        <div class="products-grid" id="products-grid"></div>
+      </div>
+    </div>
+
+    <!-- Bulk Actions Tab -->
+    <div class="tab-content" id="bulk-actions">
+      <div class="form-container">
+        <h2>Bulk Actions</h2>
+        <div class="alert" id="bulk-alert"></div>
+        
+        <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+          <button class="btn btn-success" onclick="insertSampleData()">
+            <i class="fas fa-database"></i> Insert Sample Data
+          </button>
+          
+          <button class="btn btn-warning" onclick="clearAllProducts()">
+            <i class="fas fa-trash"></i> Clear All Products
+          </button>
+          
+          <button class="btn btn-primary" onclick="exportProducts()">
+            <i class="fas fa-download"></i> Export Products
+          </button>
+        </div>
+        
+        <div class="loading" id="bulk-loading" style="display: none;">
+          <div class="spinner"></div>
+          <p>Processing...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentNotes = [];
+
+    // Tab functionality
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tabId = btn.getAttribute('data-tab');
+        
+        // Update active tab
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        
+        btn.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+        
+        // Load products if switching to manage tab
+        if (tabId === 'manage-products') {
+          loadProducts();
+        }
+      });
+    });
+
+    // Notes functionality
+    const notesInput = document.getElementById('notes-input');
+    const notesDisplay = document.getElementById('notes-display');
+    const hiddenNotes = document.getElementById('notes');
+
+    notesInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        addNote();
+      }
+    });
+
+    function addNote() {
+      const note = notesInput.value.trim();
+      if (note && !currentNotes.includes(note)) {
+        currentNotes.push(note);
+        updateNotesDisplay();
+        notesInput.value = '';
+      }
+    }
+
+    function removeNote(index) {
+      currentNotes.splice(index, 1);
+      updateNotesDisplay();
+    }
+
+    function updateNotesDisplay() {
+      notesDisplay.innerHTML = currentNotes.map((note, index) => `
+        <span class="note-tag">
+          ${note}
+          <span class="remove" onclick="removeNote(${index})">×</span>
+        </span>
+      `).join('');
+      hiddenNotes.value = currentNotes.join(',');
+    }
+
+    // File upload functionality
+    const fileInput = document.getElementById('image');
+    const fileLabel = document.querySelector('.file-upload-label');
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        fileLabel.innerHTML = `
+          <i class="fas fa-check fa-2x" style="color: green;"></i>
+          <p>${file.name}</p>
+          <p>File selected successfully</p>
+        `;
+      }
+    });
+
+    // Drag and drop functionality
+    fileLabel.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      fileLabel.classList.add('dragover');
+    });
+
+    fileLabel.addEventListener('dragleave', () => {
+      fileLabel.classList.remove('dragover');
+    });
+
+    fileLabel.addEventListener('drop', (e) => {
+      e.preventDefault();
+      fileLabel.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        fileInput.files = files;
+        fileInput.dispatchEvent(new Event('change'));
+      }
+    });
+
+    // Form submission
+    document.getElementById('add-product-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(e.target);
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const alert = document.getElementById('add-alert');
+      
+      // Debug: Log form data
+      console.log('Form data being sent:');
+      for (let [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
+      
+      try {
+        console.log('Sending request to /api/products...');
+        const response = await fetch('/api/products', {
+          method: 'POST',
+          body: formData
+        });
+        
+        console.log('Response status:', response.status);
+        const result = await response.json();
+        console.log('Response data:', result);
+        
+        if (response.ok) {
+          showAlert('add-alert', 'Product added successfully!', 'success');
+          e.target.reset();
+          currentNotes = [];
+          updateNotesDisplay();
+          // Reset file upload label
+          fileLabel.innerHTML = `
+            <i class="fas fa-cloud-upload-alt fa-2x"></i>
+            <p>Click to upload or drag and drop</p>
+            <p>PNG, JPG, GIF up to 5MB</p>
+          `;
+        } else {
+          console.error('Server error:', result);
+          showAlert('add-alert', result.error || 'Failed to add product', 'error');
+        }
+      } catch (error) {
+        console.error('Network error:', error);
+        showAlert('add-alert', 'Network error. Check if server is running.', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-plus"></i> Add Product';
+      }
+    });
+
+    // Load products for management
+    async function loadProducts() {
+      const loading = document.getElementById('products-loading');
+      const grid = document.getElementById('products-grid');
+      
+      loading.style.display = 'block';
+      grid.innerHTML = '';
+      
+      try {
+        const response = await fetch('/api/products');
+        const products = await response.json();
+        
+        if (response.ok) {
+          displayProducts(products);
+        } else {
+          showAlert('manage-alert', 'Failed to load products', 'error');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showAlert('manage-alert', 'Failed to load products', 'error');
+      } finally {
+        loading.style.display = 'none';
+      }
+    }
+
+    function displayProducts(products) {
+      const grid = document.getElementById('products-grid');
+      
+      if (products.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+            <i class="fas fa-box-open fa-3x" style="color: #ccc; margin-bottom: 1rem;"></i>
+            <h3>No products found</h3>
+            <p>Start by adding your first product!</p>
+          </div>
+        `;
+        return;
+      }
+      
+      grid.innerHTML = products.map(product => `
+        <div class="product-card">
+          <div class="product-image">
+            ${product.image ? 
+              `<img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+               <div style="display:none; align-items:center; justify-content:center; width:100%; height:100%; font-size:3rem; color:white;">
+                 <i class="fas fa-${getCategoryIcon(product.category)}"></i>
+               </div>` :
+              `<i class="fas fa-${getCategoryIcon(product.category)}"></i>`
+            }
+            ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+          </div>
+          <div class="product-info">
+            <h3>${product.name}</h3>
+            <p style="color: #666; margin: 0.5rem 0;">${product.category.charAt(0).toUpperCase() + product.category.slice(1)}</p>
+            <p style="font-size: 1.5rem; font-weight: bold; color: var(--primary);">${product.price}</p>
+            <p style="margin: 0.5rem 0; font-size: 0.9rem; color: #666;">Stock: ${product.quantity} | ${product.inStock ? 'In Stock' : 'Out of Stock'}</p>
+            <div class="product-actions">
+              <button class="btn btn-primary" style="font-size: 0.9rem; padding: 0.5rem 1rem;" onclick="editProduct('${product._id}')">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="btn btn-danger" style="font-size: 0.9rem; padding: 0.5rem 1rem;" onclick="deleteProduct('${product._id}', '${product.name}')">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function getCategoryIcon(category) {
+      const icons = {
+        floral: 'leaf',
+        woody: 'tree',
+        oriental: 'gem',
+        fresh: 'wind'
+      };
+      return icons[category] || 'spray-can';
+    }
+
+    // Delete product
+    async function deleteProduct(id, name) {
+      if (!confirm(`Are you sure you want to delete "${name}"?`)) return;
+      
+      try {
+        const response = await fetch(`/api/products/${id}`, {
+          method: 'DELETE'
+        });
+        
+        if (response.ok) {
+          showAlert('manage-alert', 'Product deleted successfully!', 'success');
+          loadProducts(); // Refresh the list
+        } else {
+          const result = await response.json();
+          showAlert('manage-alert', result.error || 'Failed to delete product', 'error');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showAlert('manage-alert', 'Failed to delete product', 'error');
+      }
+    }
+
+    // Edit product (simplified - in a real app you'd have a full edit form)
+    function editProduct(id) {
+      alert(`Edit functionality for product ${id} would go here. In a full implementation, this would open an edit form.`);
+    }
+
+    // Bulk actions
+    async function insertSampleData() {
+      if (!confirm('This will replace all existing products with sample data. Continue?')) return;
+      
+      const loading = document.getElementById('bulk-loading');
+      loading.style.display = 'block';
+      
+      try {
+        const response = await fetch('/api/products/bulk-insert', {
+          method: 'POST'
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          showAlert('bulk-alert', result.message, 'success');
+        } else {
+          showAlert('bulk-alert', result.error || 'Failed to insert sample data', 'error');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showAlert('bulk-alert', 'Failed to insert sample data', 'error');
+      } finally {
+        loading.style.display = 'none';
+      }
+    }
+
+    async function clearAllProducts() {
+      if (!confirm('This will permanently delete ALL products. This action cannot be undone!')) return;
+      if (!confirm('Are you absolutely sure? This will delete everything!')) return;
+      
+      const loading = document.getElementById('bulk-loading');
+      loading.style.display = 'block';
+      
+      try {
+        // First get all products
+        const getResponse = await fetch('/api/products');
+        const products = await getResponse.json();
+        
+        // Delete each product
+        const deletePromises = products.map(product => 
+          fetch(`/api/products/${product._id}`, { method: 'DELETE' })
+        );
+        
+        await Promise.all(deletePromises);
+        
+        showAlert('bulk-alert', 'All products deleted successfully!', 'success');
+        
+        // Refresh manage products if on that tab
+        if (document.getElementById('manage-products').classList.contains('active')) {
+          loadProducts();
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showAlert('bulk-alert', 'Failed to delete all products', 'error');
+      } finally {
+        loading.style.display = 'none';
+      }
+    }
+
+    async function exportProducts() {
+      try {
+        const response = await fetch('/api/products');
+        const products = await response.json();
+        
+        if (response.ok) {
+          const dataStr = JSON.stringify(products, null, 2);
+          const dataBlob = new Blob([dataStr], { type: 'application/json' });
+          const url = URL.createObjectURL(dataBlob);
+          
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `herman-perfume-products-${new Date().toISOString().split('T')[0]}.json`;
+          link.click();
+          
+          URL.revokeObjectURL(url);
+          showAlert('bulk-alert', 'Products exported successfully!', 'success');
+        } else {
+          showAlert('bulk-alert', 'Failed to export products', 'error');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showAlert('bulk-alert', 'Failed to export products', 'error');
+      }
+    }
+
+    // Utility function to show alerts
+    function showAlert(alertId, message, type) {
+      const alert = document.getElementById(alertId);
+      alert.className = `alert ${type}`;
+      alert.textContent = message;
+      alert.style.display = 'block';
+      
+      // Auto hide after 5 seconds
+      setTimeout(() => {
+        alert.style.display = 'none';
+      }, 5000);
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Herman Perfume Admin Panel loaded');
+    });
+  </script>
+</body>
+</html>

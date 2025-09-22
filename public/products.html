@@ -38,7 +38,6 @@
       position: fixed;
       top: 0;
       width: 100%;
-      /* background: rgba(255, 255, 255, 0.95); */
       background: transparent;
       backdrop-filter: blur(5px);
       z-index: 1000;
@@ -81,9 +80,39 @@
       border-radius: 25px;
     }
 
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-links a:hover::before {
+      width: 80%;
+    }
+
     .nav-links a:hover {
       color: var(--primary);
       transform: translateY(-2px);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: var(--secondary);
+      margin: 3px 0;
+      transition: 0.3s;
     }
 
     .cart-icon {
@@ -209,7 +238,7 @@
 
     .filter-btn:hover,
     .filter-btn.active {
-      background: var(--herman-gradient);
+      background: var(--primary);
       color: white;
       transform: translateY(-2px);
       box-shadow: 0 8px 25px rgba(74, 44, 90, 0.3);
@@ -490,6 +519,23 @@
     @media (max-width: 768px) {
       .nav-links {
         display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        padding: 1rem 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
       }
 
       .header h1 {
@@ -579,6 +625,11 @@
           <span class="cart-count" id="cart-count">0</span>
         </a></li>
       </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
   </nav>
 
@@ -861,6 +912,14 @@
       }, 3000);
     }
 
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
     // Filter button event listeners
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -884,9 +943,9 @@
     window.addEventListener('scroll', () => {
       const navbar = document.querySelector('.navbar');
       if (window.scrollY > 50) {
-        navbar.style.background = 'transparent'; //'rgba(255, 255, 255, 0.98)'
+        navbar.style.background = 'transparent';
       } else {
-        navbar.style.background = 'transparent'; //rgba(255, 255, 255, 0.95)
+        navbar.style.background = 'transparent';
       }
     });
   </script>

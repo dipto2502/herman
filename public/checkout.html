@@ -422,16 +422,60 @@
 
     /* Empty Cart */
     .empty-cart {
-      text-align: center;
-      padding: 3rem;
-      color: #666;
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
 
-    .empty-cart i {
-      font-size: 4rem;
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
+.empty-cart:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.empty-cart-content i {
+  font-size: 5rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.empty-cart-content h3 {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+  color: var(--secondary);
+}
+
+.empty-cart-content p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #666;
+}
+
+.shop-now-btn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: var(--herman-gradient);
+  color: white;
+  font-weight: bold;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.shop-now-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(74, 44, 90, 0.3);
+}
+
 
     /* Success Message */
     .success-message {
@@ -682,13 +726,13 @@
 
     <!-- Empty Cart Message -->
     <div class="empty-cart" id="empty-cart" style="display: none;">
-      <i class="fas fa-shopping-cart"></i>
-      <h3>Your cart is empty</h3>
-      <p>Add some products to your cart to proceed with checkout.</p>
-      <a href="products.html" class="btn btn-primary">
-        <i class="fas fa-shopping-bag"></i> Shop Now
-      </a>
-    </div>
+  <div class="empty-cart-content">
+    <i class="fas fa-shopping-cart"></i>
+    <h3>Your Cart is Empty</h3>
+    <p>Add some luxurious fragrances to your cart and start shopping now!</p>
+    <a href="products.html" class="shop-now-btn">Shop Now</a>
+  </div>
+</div>
 
     <!-- Loading -->
     <div class="loading" id="loading">

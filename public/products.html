@@ -609,6 +609,48 @@
         transform: translateY(0) scale(1);
       }
     }
+/* Floating Cart */
+.floating-cart {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: transparent;
+  color: black;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  z-index: 2000;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.floating-cart:hover {
+  background: transparent;
+  transform: scale(1.1);
+}
+
+.floating-cart span {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #ff4757;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
   </style>
 </head>
 <body>
@@ -764,16 +806,25 @@
 
     // Update cart count in navbar
     function updateCartCount() {
-      const cartCount = document.getElementById('cart-count');
-      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-      cartCount.textContent = totalItems;
-      
-      if (totalItems > 0) {
-        cartCount.style.display = 'flex';
-      } else {
-        cartCount.style.display = 'none';
-      }
-    }
+  const cart = JSON.parse(localStorage.getItem("hermanCart")) || [];
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  // Navbar cart
+  const navCartCount = document.getElementById("cart-count");
+  if (navCartCount) {
+    navCartCount.textContent = totalItems;
+    navCartCount.style.display = totalItems > 0 ? "inline-flex" : "none";
+  }
+
+  // Floating cart
+  const floatingCartCount = document.getElementById("floating-cart-count");
+  if (floatingCartCount) {
+    floatingCartCount.textContent = totalItems;
+    floatingCartCount.style.display = totalItems > 0 ? "flex" : "none";
+  }
+}
+
+
 
     // Load products function
     async function loadProducts() {
@@ -937,6 +988,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       loadCart();
       loadProducts();
+      updateCartCount();
     });
 
     // Navbar scroll effect
@@ -949,5 +1001,10 @@
       }
     });
   </script>
+  <!-- Floating Cart Icon -->
+<div class="floating-cart" onclick="window.location.href='checkout.html'">
+  <i class="fas fa-shopping-cart"></i>
+  <span id="floating-cart-count">0</span>
+</div>
 </body>
 </html>

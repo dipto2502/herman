@@ -35,15 +35,15 @@
     .container {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 2rem;
+      padding: 1rem;
     }
 
     .header {
       background: white;
-      padding: 2rem;
+      padding: 1.5rem;
       border-radius: 15px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       text-align: center;
     }
 
@@ -52,39 +52,43 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      font-size: 2.5rem;
+      font-size: 2rem;
       margin-bottom: 0.5rem;
     }
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .stat-card {
       background: white;
-      padding: 1.5rem;
+      padding: 1rem;
       border-radius: 15px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       text-align: center;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .stat-icon {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
     }
 
     .stat-value {
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-weight: bold;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
     }
 
     .stat-label {
       color: #666;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
 
     .orders-section {
@@ -97,21 +101,23 @@
     .section-header {
       background: var(--herman-gradient);
       color: white;
-      padding: 1.5rem 2rem;
+      padding: 1rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
 
     .section-title {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       margin: 0;
     }
 
     .filters {
       display: flex;
-      gap: 1rem;
-      padding: 1rem 2rem;
+      gap: 0.75rem;
+      padding: 1rem;
       background: #f8f9fa;
       border-bottom: 1px solid #dee2e6;
       flex-wrap: wrap;
@@ -122,48 +128,138 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-group label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      white-space: nowrap;
     }
 
     .filter-select {
-      padding: 0.5rem 1rem;
+      padding: 0.5rem;
       border: 1px solid #ddd;
       border-radius: 5px;
       background: white;
+      font-size: 0.9rem;
+      min-width: 120px;
     }
 
     .search-input {
-      padding: 0.5rem 1rem;
+      padding: 0.5rem;
       border: 1px solid #ddd;
       border-radius: 5px;
-      width: 250px;
+      font-size: 0.9rem;
+      min-width: 200px;
+      flex: 1;
+    }
+
+    /* Mobile-first table styles */
+    .table-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .orders-table {
       width: 100%;
       border-collapse: collapse;
+      min-width: 800px;
     }
 
     .orders-table th,
     .orders-table td {
-      padding: 1rem;
+      padding: 0.75rem 0.5rem;
       text-align: left;
       border-bottom: 1px solid #dee2e6;
+      font-size: 0.9rem;
     }
 
     .orders-table th {
       background: #f8f9fa;
       font-weight: 600;
       color: var(--secondary);
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     .orders-table tbody tr:hover {
       background: #f8f9fa;
     }
 
+    /* Mobile card layout */
+    .mobile-orders {
+      display: none;
+    }
+
+    .order-card {
+      background: white;
+      border: 1px solid #dee2e6;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .order-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .order-id {
+      font-weight: bold;
+      color: var(--secondary);
+      font-size: 1.1rem;
+    }
+
+    .order-status {
+      flex-shrink: 0;
+    }
+
+    .order-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .order-info-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .order-info-label {
+      font-size: 0.8rem;
+      color: #666;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .order-info-value {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .order-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+    }
+
     .status-badge {
       padding: 0.25rem 0.75rem;
       border-radius: 15px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 600;
       text-transform: uppercase;
     }
@@ -178,7 +274,7 @@
     .payment-badge {
       padding: 0.25rem 0.75rem;
       border-radius: 15px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 600;
     }
 
@@ -187,11 +283,12 @@
 
     .actions {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.25rem;
+      flex-wrap: wrap;
     }
 
     .btn {
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 0.75rem;
       border: none;
       border-radius: 5px;
       font-size: 0.8rem;
@@ -201,7 +298,16 @@
       text-decoration: none;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.25rem;
+      min-width: 40px;
+      white-space: nowrap;
+    }
+
+    .btn-sm {
+      padding: 0.375rem 0.5rem;
+      font-size: 0.75rem;
+      min-width: 35px;
     }
 
     .btn-primary { background: var(--primary); color: white; }
@@ -229,12 +335,12 @@
 
     .modal-content {
       background-color: white;
-      margin: 5% auto;
-      padding: 2rem;
+      margin: 2% auto;
+      padding: 1rem;
       border-radius: 15px;
-      width: 90%;
+      width: 95%;
       max-width: 600px;
-      max-height: 80vh;
+      max-height: 95vh;
       overflow-y: auto;
       position: relative;
       animation: slideIn 0.3s ease;
@@ -254,13 +360,15 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       padding-bottom: 1rem;
       border-bottom: 2px solid var(--primary);
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
 
     .modal-title {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       color: var(--secondary);
     }
 
@@ -270,6 +378,12 @@
       font-size: 1.5rem;
       cursor: pointer;
       color: #999;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .close:hover {
@@ -288,38 +402,51 @@
     }
 
     .detail-section h4 {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
       color: var(--secondary);
       border-bottom: 1px solid #dee2e6;
       padding-bottom: 0.5rem;
+      font-size: 1rem;
     }
 
     .detail-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.75rem;
     }
 
     .detail-item {
       display: flex;
       justify-content: space-between;
+      align-items: flex-start;
       padding: 0.25rem 0;
+      flex-wrap: wrap;
+      gap: 0.25rem;
     }
 
     .detail-label {
       font-weight: 600;
       color: #666;
+      font-size: 0.9rem;
+    }
+
+    .detail-value {
+      text-align: right;
+      flex: 1;
+      min-width: 0;
+      word-break: break-word;
     }
 
     .order-items-table {
       width: 100%;
-      margin-top: 1rem;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
     }
 
     .order-items-table th,
     .order-items-table td {
-      padding: 0.75rem;
+      padding: 0.5rem;
       text-align: left;
       border-bottom: 1px solid #dee2e6;
     }
@@ -344,6 +471,7 @@
     .form-group label {
       font-weight: 600;
       color: var(--secondary);
+      font-size: 0.9rem;
     }
 
     .form-group select,
@@ -351,7 +479,7 @@
       padding: 0.75rem;
       border: 1px solid #ddd;
       border-radius: 5px;
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
 
     .form-group textarea {
@@ -381,12 +509,12 @@
 
     .empty-state {
       text-align: center;
-      padding: 3rem;
+      padding: 2rem 1rem;
       color: #666;
     }
 
     .empty-state i {
-      font-size: 4rem;
+      font-size: 3rem;
       color: var(--primary);
       margin-bottom: 1rem;
     }
@@ -394,17 +522,20 @@
     .pagination {
       display: flex;
       justify-content: center;
-      gap: 0.5rem;
+      gap: 0.25rem;
       padding: 1rem;
       background: #f8f9fa;
+      flex-wrap: wrap;
     }
 
     .pagination button {
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 0.75rem;
       border: 1px solid #ddd;
       background: white;
       cursor: pointer;
       border-radius: 5px;
+      font-size: 0.9rem;
+      min-width: 40px;
     }
 
     .pagination button.active {
@@ -426,40 +557,297 @@
       text-align: center;
     }
 
-    /* Responsive */
+    .demo-actions p {
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .demo-actions .btn {
+      margin: 0.25rem;
+    }
+
+    /* Mobile Styles */
     @media (max-width: 768px) {
       .container {
+        padding: 0.75rem;
+      }
+
+      .header {
         padding: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .header h1 {
+        font-size: 1.5rem;
+      }
+
+      .header p {
+        font-size: 0.9rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+      }
+
+      .stat-card {
+        padding: 0.75rem;
+        min-height: 100px;
+      }
+
+      .stat-icon {
+        font-size: 1.25rem;
+      }
+
+      .stat-value {
+        font-size: 1.25rem;
+      }
+
+      .section-header {
+        padding: 0.75rem;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+      }
+
+      .section-title {
+        font-size: 1.1rem;
+        text-align: center;
       }
 
       .filters {
         flex-direction: column;
-        align-items: stretch;
+        gap: 0.75rem;
+        padding: 0.75rem;
       }
 
       .filter-group {
+        width: 100%;
         justify-content: space-between;
+      }
+
+      .filter-group label {
+        flex-shrink: 0;
+      }
+
+      .filter-select {
+        flex: 1;
+        min-width: 0;
       }
 
       .search-input {
         width: 100%;
+        min-width: 0;
       }
 
-      .orders-table {
-        font-size: 0.9rem;
+      /* Hide table, show mobile cards */
+      .table-container {
+        display: none;
       }
 
-      .orders-table th,
-      .orders-table td {
-        padding: 0.5rem;
+      .mobile-orders {
+        display: block;
+        padding: 0.75rem;
       }
 
-      .actions {
-        flex-direction: column;
+      .order-card {
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .order-info {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+
+      .order-info-item {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .order-info-label {
+        flex-shrink: 0;
+      }
+
+      .order-info-value {
+        text-align: right;
+      }
+
+      .order-actions {
+        gap: 0.375rem;
+      }
+
+      .order-actions .btn {
+        flex: 1;
+        min-width: 0;
+        padding: 0.625rem 0.5rem;
+        font-size: 0.75rem;
+      }
+
+      .pagination {
+        padding: 0.75rem;
+        gap: 0.375rem;
+      }
+
+      .pagination button {
+        padding: 0.375rem 0.5rem;
+        font-size: 0.8rem;
+        min-width: 35px;
+      }
+
+      .demo-actions {
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .demo-actions .btn {
+        display: block;
+        width: 100%;
+        margin: 0.25rem 0;
+        text-align: center;
+      }
+
+      /* Modal adjustments */
+      .modal-content {
+        width: 98%;
+        margin: 1% auto;
+        padding: 0.75rem;
+        max-height: 98vh;
       }
 
       .detail-grid {
         grid-template-columns: 1fr;
+      }
+
+      .detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .detail-value {
+        text-align: left;
+      }
+
+      .order-items-table {
+        font-size: 0.8rem;
+      }
+
+      .order-items-table th,
+      .order-items-table td {
+        padding: 0.375rem 0.25rem;
+      }
+    }
+
+    /* Extra small screens */
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .order-card-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.75rem;
+      }
+
+      .order-actions .btn {
+        padding: 0.75rem 0.5rem;
+      }
+
+      /* Stack table cells vertically on very small screens */
+      .order-items-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      .order-items-table thead {
+        display: none;
+      }
+
+      .order-items-table tbody {
+        display: block;
+      }
+
+      .order-items-table tr {
+        display: block;
+        border: 1px solid #ddd;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
+        border-radius: 5px;
+        background: white;
+      }
+
+      .order-items-table td {
+        display: block;
+        text-align: right;
+        padding: 0.25rem 0;
+        border: none;
+        border-bottom: 1px solid #eee;
+      }
+
+      .order-items-table td:before {
+        content: attr(data-label) ": ";
+        float: left;
+        font-weight: bold;
+        color: #666;
+      }
+
+      .order-items-table td:last-child {
+        border-bottom: none;
+      }
+    }
+
+    /* Print styles */
+    @media print {
+      .filters,
+      .demo-actions,
+      .section-header button,
+      .actions,
+      .pagination {
+        display: none !important;
+      }
+
+      .container {
+        max-width: none;
+        padding: 0;
+      }
+
+      .orders-section {
+        box-shadow: none;
+      }
+    }
+
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+      .status-badge,
+      .payment-badge {
+        border: 2px solid currentColor;
+      }
+
+      .btn {
+        border: 2px solid transparent;
+      }
+
+      .btn:hover {
+        border-color: currentColor;
+      }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      .btn,
+      .modal,
+      .spinner {
+        animation: none;
+        transition: none;
+      }
+
+      .btn:hover {
+        transform: none;
       }
     }
   </style>
@@ -472,15 +860,15 @@
     </div>
 
     <!-- Demo Actions -->
-    <div class="demo-actions">
+    <!-- <div class="demo-actions">
       <p><strong>API Mode:</strong> This system connects to your backend API endpoints for real order management.</p>
       <button class="btn btn-primary" onclick="generateSampleOrders()">
         <i class="fas fa-plus"></i> Create Sample Orders
       </button>
-      <button class="btn btn-danger" onclick="clearAllOrders()" style="margin-left: 0.5rem;">
+      <button class="btn btn-danger" onclick="clearAllOrders()">
         <i class="fas fa-trash"></i> Clear All Orders
       </button>
-    </div>
+    </div> -->
 
     <!-- Statistics -->
     <div class="stats-grid" id="stats-grid">
@@ -559,8 +947,14 @@
         <p>Loading orders...</p>
       </div>
 
-      <div id="orders-table-container">
+      <!-- Desktop Table View -->
+      <div class="table-container" id="orders-table-container">
         <!-- Orders table will be loaded here -->
+      </div>
+
+      <!-- Mobile Card View -->
+      <div class="mobile-orders" id="mobile-orders-container">
+        <!-- Mobile order cards will be loaded here -->
       </div>
     </div>
   </div>
@@ -609,7 +1003,7 @@
         
       } catch (error) {
         console.error('Error loading orders:', error);
-        document.getElementById('orders-table-container').innerHTML = `
+        const errorContent = `
           <div class="empty-state">
             <i class="fas fa-exclamation-circle"></i>
             <h3>Error Loading Orders</h3>
@@ -619,6 +1013,8 @@
             </button>
           </div>
         `;
+        document.getElementById('orders-table-container').innerHTML = errorContent;
+        document.getElementById('mobile-orders-container').innerHTML = errorContent;
       } finally {
         document.getElementById('orders-loading').style.display = 'none';
       }
@@ -657,18 +1053,18 @@
       document.getElementById('total-revenue').textContent = `৳${stats.totalRevenue.toLocaleString()}`;
     }
 
-    // Display orders in table
+    // Display orders in table and mobile views
     function displayOrders() {
-      const container = document.getElementById('orders-table-container');
-      
       if (filteredOrders.length === 0) {
-        container.innerHTML = `
+        const emptyContent = `
           <div class="empty-state">
             <i class="fas fa-inbox"></i>
             <h3>No Orders Found</h3>
             <p>No orders match your current filters. Try placing an order from the checkout page.</p>
           </div>
         `;
+        document.getElementById('orders-table-container').innerHTML = emptyContent;
+        document.getElementById('mobile-orders-container').innerHTML = emptyContent;
         return;
       }
 
@@ -678,6 +1074,15 @@
       const endIndex = startIndex + ordersPerPage;
       const paginatedOrders = filteredOrders.slice(startIndex, endIndex);
 
+      // Desktop Table View
+      displayTableView(paginatedOrders, totalPages);
+      
+      // Mobile Card View
+      displayMobileView(paginatedOrders, totalPages);
+    }
+
+    // Display table view for desktop
+    function displayTableView(orders, totalPages) {
       const tableHTML = `
         <table class="orders-table">
           <thead>
@@ -693,7 +1098,7 @@
             </tr>
           </thead>
           <tbody>
-            ${paginatedOrders.map(order => `
+            ${orders.map(order => `
               <tr>
                 <td><strong>${order.orderId || order._id}</strong></td>
                 <td>
@@ -715,21 +1120,21 @@
                 <td>${new Date(order.createdAt || order.timestamp).toLocaleDateString()}</td>
                 <td>
                   <div class="actions">
-                    <button class="btn btn-info" onclick="viewOrder('${order._id || order.orderId}')" title="View Details">
+                    <button class="btn btn-sm btn-info" onclick="viewOrder('${order._id || order.orderId}')" title="View Details">
                       <i class="fas fa-eye"></i>
                     </button>
                     ${(order.status || 'pending') === 'pending' ? `
-                      <button class="btn btn-success" onclick="updateOrderStatus('${order._id || order.orderId}', 'confirmed')" title="Confirm Order">
+                      <button class="btn btn-sm btn-success" onclick="updateOrderStatus('${order._id || order.orderId}', 'confirmed')" title="Confirm Order">
                         <i class="fas fa-check"></i>
                       </button>
                     ` : ''}
                     ${(order.status || 'pending') === 'confirmed' ? `
-                      <button class="btn btn-warning" onclick="updateOrderStatus('${order._id || order.orderId}', 'shipped')" title="Mark as Shipped">
+                      <button class="btn btn-sm btn-warning" onclick="updateOrderStatus('${order._id || order.orderId}', 'shipped')" title="Mark as Shipped">
                         <i class="fas fa-truck"></i>
                       </button>
                     ` : ''}
                     ${(order.status || 'pending') === 'shipped' ? `
-                      <button class="btn btn-success" onclick="updateOrderStatus('${order._id || order.orderId}', 'delivered')" title="Mark as Delivered">
+                      <button class="btn btn-sm btn-success" onclick="updateOrderStatus('${order._id || order.orderId}', 'delivered')" title="Mark as Delivered">
                         <i class="fas fa-box"></i>
                       </button>
                     ` : ''}
@@ -742,7 +1147,85 @@
         ${totalPages > 1 ? generatePagination(totalPages) : ''}
       `;
 
-      container.innerHTML = tableHTML;
+      document.getElementById('orders-table-container').innerHTML = tableHTML;
+    }
+
+    // Display mobile card view
+    function displayMobileView(orders, totalPages) {
+      const cardsHTML = orders.map(order => `
+        <div class="order-card">
+          <div class="order-card-header">
+            <div class="order-id">#${order.orderId || order._id}</div>
+            <div class="order-status">
+              <span class="status-badge status-${order.status || 'pending'}">
+                ${order.status || 'pending'}
+              </span>
+            </div>
+          </div>
+          
+          <div class="order-info">
+            <div class="order-info-item">
+              <div class="order-info-label">Customer</div>
+              <div class="order-info-value">
+                <div>${order.customer.firstName} ${order.customer.lastName}</div>
+                <div style="font-size: 0.8rem; color: #666;">${order.customer.phone}</div>
+              </div>
+            </div>
+            
+            <div class="order-info-item">
+              <div class="order-info-label">Items</div>
+              <div class="order-info-value">${order.items.length} item${order.items.length > 1 ? 's' : ''}</div>
+            </div>
+            
+            <div class="order-info-item">
+              <div class="order-info-label">Total</div>
+              <div class="order-info-value"><strong>৳${order.totals.total}</strong></div>
+            </div>
+            
+            <div class="order-info-item">
+              <div class="order-info-label">Payment</div>
+              <div class="order-info-value">
+                <span class="payment-badge payment-${order.payment.method}">
+                  ${order.payment.method === 'bkash' ? 'bKash' : 'COD'}
+                </span>
+              </div>
+            </div>
+            
+            <div class="order-info-item">
+              <div class="order-info-label">Date</div>
+              <div class="order-info-value">${new Date(order.createdAt || order.timestamp).toLocaleDateString()}</div>
+            </div>
+          </div>
+          
+          <div class="order-actions">
+            <button class="btn btn-info" onclick="viewOrder('${order._id || order.orderId}')">
+              <i class="fas fa-eye"></i> View
+            </button>
+            ${(order.status || 'pending') === 'pending' ? `
+              <button class="btn btn-success" onclick="updateOrderStatus('${order._id || order.orderId}', 'confirmed')">
+                <i class="fas fa-check"></i> Confirm
+              </button>
+            ` : ''}
+            ${(order.status || 'pending') === 'confirmed' ? `
+              <button class="btn btn-warning" onclick="updateOrderStatus('${order._id || order.orderId}', 'shipped')">
+                <i class="fas fa-truck"></i> Ship
+              </button>
+            ` : ''}
+            ${(order.status || 'pending') === 'shipped' ? `
+              <button class="btn btn-success" onclick="updateOrderStatus('${order._id || order.orderId}', 'delivered')">
+                <i class="fas fa-box"></i> Deliver
+              </button>
+            ` : ''}
+          </div>
+        </div>
+      `).join('');
+
+      const mobileHTML = `
+        ${cardsHTML}
+        ${totalPages > 1 ? generatePagination(totalPages) : ''}
+      `;
+
+      document.getElementById('mobile-orders-container').innerHTML = mobileHTML;
     }
 
     // Generate pagination
@@ -751,11 +1234,27 @@
       
       // Previous button
       if (currentPage > 1) {
-        paginationHTML += `<button onclick="changePage(${currentPage - 1})">‹ Previous</button>`;
+        paginationHTML += `<button onclick="changePage(${currentPage - 1})">‹</button>`;
       }
       
-      // Page numbers
-      for (let i = 1; i <= totalPages; i++) {
+      // Page numbers (show only 5 pages max on mobile)
+      const maxPages = window.innerWidth <= 768 ? 5 : 10;
+      let startPage = Math.max(1, currentPage - Math.floor(maxPages / 2));
+      let endPage = Math.min(totalPages, startPage + maxPages - 1);
+      
+      // Adjust start page if we're near the end
+      if (endPage - startPage + 1 < maxPages) {
+        startPage = Math.max(1, endPage - maxPages + 1);
+      }
+      
+      if (startPage > 1) {
+        paginationHTML += `<button onclick="changePage(1)">1</button>`;
+        if (startPage > 2) {
+          paginationHTML += `<button disabled>...</button>`;
+        }
+      }
+      
+      for (let i = startPage; i <= endPage; i++) {
         if (i === currentPage) {
           paginationHTML += `<button class="active">${i}</button>`;
         } else {
@@ -763,9 +1262,16 @@
         }
       }
       
+      if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+          paginationHTML += `<button disabled>...</button>`;
+        }
+        paginationHTML += `<button onclick="changePage(${totalPages})">${totalPages}</button>`;
+      }
+      
       // Next button
       if (currentPage < totalPages) {
-        paginationHTML += `<button onclick="changePage(${currentPage + 1})">Next ›</button>`;
+        paginationHTML += `<button onclick="changePage(${currentPage + 1})">›</button>`;
       }
       
       paginationHTML += '</div>';
@@ -776,6 +1282,11 @@
     function changePage(page) {
       currentPage = page;
       displayOrders();
+      
+      // Scroll to top of orders section on mobile
+      if (window.innerWidth <= 768) {
+        document.querySelector('.orders-section').scrollIntoView({ behavior: 'smooth' });
+      }
     }
 
     // Filter orders
@@ -843,16 +1354,16 @@
             <div class="detail-grid">
               <div class="detail-item">
                 <span class="detail-label">Name:</span>
-                <span>${order.customer.firstName} ${order.customer.lastName}</span>
+                <span class="detail-value">${order.customer.firstName} ${order.customer.lastName}</span>
               </div>
               <div class="detail-item">
                 <span class="detail-label">Phone:</span>
-                <span>${order.customer.phone}</span>
+                <span class="detail-value">${order.customer.phone}</span>
               </div>
               ${order.customer.email ? `
                 <div class="detail-item">
                   <span class="detail-label">Email:</span>
-                  <span>${order.customer.email}</span>
+                  <span class="detail-value">${order.customer.email}</span>
                 </div>
               ` : ''}
             </div>
@@ -863,17 +1374,17 @@
             <h4><i class="fas fa-map-marker-alt"></i> Delivery Information</h4>
             <div class="detail-item">
               <span class="detail-label">Address:</span>
-              <span>${order.delivery.address}</span>
+              <span class="detail-value">${order.delivery.address}</span>
             </div>
             <div class="detail-grid">
               <div class="detail-item">
                 <span class="detail-label">City:</span>
-                <span>${order.delivery.city}</span>
+                <span class="detail-value">${order.delivery.city}</span>
               </div>
               ${order.delivery.postalCode ? `
                 <div class="detail-item">
                   <span class="detail-label">Postal Code:</span>
-                  <span>${order.delivery.postalCode}</span>
+                  <span class="detail-value">${order.delivery.postalCode}</span>
                 </div>
               ` : ''}
             </div>
@@ -885,14 +1396,16 @@
             <div class="detail-grid">
               <div class="detail-item">
                 <span class="detail-label">Method:</span>
-                <span class="payment-badge payment-${order.payment.method}">
-                  ${order.payment.method === 'bkash' ? 'bKash' : 'Cash on Delivery'}
+                <span class="detail-value">
+                  <span class="payment-badge payment-${order.payment.method}">
+                    ${order.payment.method === 'bkash' ? 'bKash' : 'Cash on Delivery'}
+                  </span>
                 </span>
               </div>
               ${order.payment.transactionId ? `
                 <div class="detail-item">
                   <span class="detail-label">Transaction ID:</span>
-                  <span>${order.payment.transactionId}</span>
+                  <span class="detail-value">${order.payment.transactionId}</span>
                 </div>
               ` : ''}
             </div>
@@ -913,10 +1426,10 @@
               <tbody>
                 ${order.items.map(item => `
                   <tr>
-                    <td>${item.name}</td>
-                    <td>${item.quantity}</td>
-                    <td>৳${item.price}</td>
-                    <td>৳${item.price * item.quantity}</td>
+                    <td data-label="Product">${item.name}</td>
+                    <td data-label="Quantity">${item.quantity}</td>
+                    <td data-label="Price">৳${item.price}</td>
+                    <td data-label="Total">৳${item.price * item.quantity}</td>
                   </tr>
                 `).join('')}
               </tbody>
@@ -1190,6 +1703,53 @@
       }
     }
 
+    // Handle window resize
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(function() {
+        // Re-render pagination on resize to adjust for mobile/desktop
+        if (filteredOrders.length > 0) {
+          displayOrders();
+        }
+      }, 250);
+    });
+
+    // Touch gestures for mobile
+    let touchStartX = null;
+    let touchStartY = null;
+
+    document.addEventListener('touchstart', function(e) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    });
+
+    document.addEventListener('touchend', function(e) {
+      if (!touchStartX || !touchStartY) return;
+
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+
+      // Only handle horizontal swipes that are longer than vertical
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+        const totalPages = Math.ceil(filteredOrders.length / ordersPerPage);
+        
+        if (deltaX > 0 && currentPage > 1) {
+          // Swipe right - previous page
+          changePage(currentPage - 1);
+        } else if (deltaX < 0 && currentPage < totalPages) {
+          // Swipe left - next page
+          changePage(currentPage + 1);
+        }
+      }
+
+      touchStartX = null;
+      touchStartY = null;
+    });
+
     // Keyboard shortcuts
     document.addEventListener('keydown', function(e) {
       // Escape key to close modal
@@ -1201,6 +1761,20 @@
       if (e.ctrlKey && e.key === 'r') {
         e.preventDefault();
         refreshOrders();
+      }
+
+      // Arrow keys for pagination
+      if (e.key === 'ArrowLeft' && currentPage > 1) {
+        e.preventDefault();
+        changePage(currentPage - 1);
+      }
+      
+      if (e.key === 'ArrowRight') {
+        const totalPages = Math.ceil(filteredOrders.length / ordersPerPage);
+        if (currentPage < totalPages) {
+          e.preventDefault();
+          changePage(currentPage + 1);
+        }
       }
     });
 
